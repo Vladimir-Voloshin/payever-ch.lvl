@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAlbumsTable extends Migration
+class CreateInitTables extends Migration
 {
     /**
      * Run the migrations.
@@ -14,6 +14,14 @@ class CreateAlbumsTable extends Migration
     {
         Schema::create('albums', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('album_name');
+            $table->timestamps();
+        });
+        
+        Schema::create('images', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('album_id');
+            $table->string('image_name');
             $table->timestamps();
         });
     }
@@ -26,5 +34,6 @@ class CreateAlbumsTable extends Migration
     public function down()
     {
         Schema::drop('albums');
+        Schema::drop('images');
     }
 }
