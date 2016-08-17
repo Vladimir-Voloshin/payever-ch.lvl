@@ -14,13 +14,11 @@
 use App\Album;
 use Illuminate\Http\Request;
 
-Route::get('/', function () {
-    $albums = Album::orderBy('created_at', 'asc')->get();
+Route::get('/', 'AlbumController@index');
 
-    return view('albums', [
-        'albums' => $albums
-    ]);
-});
+
+
+Route::post('/album', 'AlbumController@create');
 
 /**
  * Add New Album
@@ -43,6 +41,9 @@ Route::post('/album', function (Request $request) {
     return redirect('/');
 });
 
+
+Route::delete('/album/{album}', 'AlbumController@delete');
+
 /**
  * Delete Album
  */
@@ -50,3 +51,5 @@ Route::delete('/album/{album}', function (Album $album) {
     $album->delete();
     return redirect('/');
 });
+
+Route::auth();
