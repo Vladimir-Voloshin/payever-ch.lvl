@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Album;
 use App\Repositories\AlbumRepository;
+use App\User as PayeverUser;
 
 class AlbumController extends Controller
 {
@@ -16,7 +17,7 @@ class AlbumController extends Controller
 	 */
 	protected $albums;
 	
-    public function __construct(TaskRepository $albums)
+    public function __construct(AlbumRepository $albums)
 	{
 		$this->middleware('auth');
 		$this->albums = $albums;
@@ -31,8 +32,12 @@ class AlbumController extends Controller
 	public function index(Request $request)
 	{
 //    	$albums = Album::orderBy('created_at', 'asc')->get();
-
-		$albums = $this->albums->forUser($request->user());
+		if($request->user()->rank >= PayeverUser::SUPERVISOR)
+		{
+			$albums = Album::all();
+		}else{
+			$albums = $this->albums->forUser($request->user());
+		}
 		
 		return view('albums', [
 			'albums' => $albums,

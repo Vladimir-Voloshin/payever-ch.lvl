@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.base')
 
 @section('content')
 <div class="container">
@@ -7,6 +7,10 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Hint</div>
+                        <div class="panel-body">Just use <b>super@example.com</b> and <b>9988555d</b> to login</div>
+                    </div>
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}
 

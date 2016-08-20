@@ -1,5 +1,3 @@
-<!-- resources/views/tasks.blade.php -->
-
 @extends('layouts.base')
 
 @section('content')
@@ -80,6 +78,4 @@
             
         </div>
     </div>
-
-    <!-- TODO: Current Tasks -->
 @endsection

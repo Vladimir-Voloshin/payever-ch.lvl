@@ -7,6 +7,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    const USER         = 10;
+    const SUPERVISOR   = 80;
+    const ADMIN        = 90;
+    const SUPERADMIN   = 99;
     /**
      * The attributes that are mass assignable.
      *

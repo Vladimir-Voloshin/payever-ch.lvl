@@ -16,8 +16,6 @@ use Illuminate\Http\Request;
 
 Route::get('/', 'AlbumController@index');
 
-
-
 Route::post('/album', 'AlbumController@create');
 
 /**

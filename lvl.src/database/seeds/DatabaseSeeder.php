@@ -21,5 +21,7 @@ class DatabaseSeeder extends Seeder
             ]);
             $imagesPerAlbum += 15;
         });
+        
+        factory(App\User::class, 'supervisor')->create();
     }
 }
