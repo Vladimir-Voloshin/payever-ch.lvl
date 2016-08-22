@@ -1,5 +1,8 @@
 var elixir = require('laravel-elixir');
 
+require( 'elixir-coffeeify' );
+
+
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -13,4 +16,8 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
     mix.sass('app.scss');
+});
+
+elixir(function(mix) {
+    mix.coffeeify(['coffee/payever.coffee']);
 });
