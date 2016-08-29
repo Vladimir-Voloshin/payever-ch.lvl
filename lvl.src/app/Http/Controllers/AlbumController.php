@@ -2,25 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Managers\AlbumManager;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Album;
 use App\Repositories\AlbumRepository;
-use App\User as PayeverUser;
+
+use \Validator;
+use Illuminate\Support\Facades\Auth; //get data from auth-ed user
+
 
 class AlbumController extends Controller
 {
 	/**
-	 * The task repository instance.
+	 * The album manager instance.
 	 *
 	 * @var AlbumRepository
 	 */
-	protected $albums;
+	protected $manager;
 	
-    public function __construct(AlbumRepository $albums)
+    public function __construct(AlbumManager $manager)
 	{
 		$this->middleware('auth');
-		$this->albums = $albums;
+		$this->manager = $manager;
 	}
 
 	/**
@@ -31,16 +35,8 @@ class AlbumController extends Controller
 	 */
 	public function index(Request $request)
 	{
-//    	$albums = Album::orderBy('created_at', 'asc')->get();
-		if($request->user()->rank >= PayeverUser::SUPERVISOR)
-		{
-			$albums = Album::all();
-		}else{
-			$albums = $this->albums->forUser($request->user());
-		}
-		
-		return view('albums', [
-			'albums' => $albums,
+		return view('albums.list', [
+			'albums' => $this->manager->getAllAlbums($request),
 		]);
 	}
 
@@ -52,13 +48,45 @@ class AlbumController extends Controller
 	 */
 	public function create(Request $request)
 	{
-		$this->validate($request, [
-			'album_name' => 'required|max:255',
+		$validator = Validator::make($request->all(), [
+			'album_name' => 'required|unique:albums|max:255',
 		]);
 
-		$request->user()->albums()->create([
-			'album_name' => $request->album_name,
+		if ($validator->fails()) {
+			return back()
+				->withInput()
+				->withErrors($validator);
+		}
+
+		$album = new Album;
+		$album->album_name = $request->album_name;
+		$album->user_id = Auth::id();
+		$album->save();
+
+		return redirect('/');
+	}
+	
+	/**
+	 * Update an album.
+	 *
+	 * @param  Request  $request
+	 * @param  Album  $album
+	 * @return Response
+	 */
+	public function update(Request $request, Album $album)
+	{
+		$validator = Validator::make($request->all(), [
+			'album_name' => 'required|unique:albums|max:255',
 		]);
+
+		if ($validator->fails()) {
+			return redirect('/')
+				->withInput()
+				->withErrors($validator);
+		}
+
+		$album->album_name = $request->album_name;
+		$album->save();
 
 		return redirect('/');
 	}
@@ -70,7 +98,7 @@ class AlbumController extends Controller
 	 * @param  Album  $album
 	 * @return Response
 	 */
-	public function destroy(Request $request, Album $album)
+	public function delete(Request $request, Album $album)
 	{
 		$this->authorize('delete', $album);
 

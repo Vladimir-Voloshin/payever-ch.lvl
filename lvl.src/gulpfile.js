@@ -15,9 +15,9 @@ require( 'elixir-coffeeify' );
  */
 
 elixir(function(mix) {
-    mix.sass('app.scss');
+    mix
+        .sass('app.scss')
+        .coffeeify(['coffee/payever.coffee'])
+        .version(['css/app.css', 'js/payever.js']);
 });
 
-elixir(function(mix) {
-    mix.coffeeify(['coffee/payever.coffee']);
-});

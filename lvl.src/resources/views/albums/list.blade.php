@@ -6,7 +6,7 @@
             
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    New Task
+                    New Album
                 </div>
                 <!-- Bootstrap Boilerplate... -->
             
@@ -23,7 +23,7 @@
                             <label for="album" class="col-sm-3 control-label">Album</label>
             
                             <div class="col-sm-6">
-                                <input type="text" name="album_name" id="album-name" class="form-control">
+                                <input type="text" name="album_name" id="album-name" class="form-control" value=" {{ old('album_name') }}">
                             </div>
                         </div>
             
@@ -59,14 +59,15 @@
 
                                     <!-- Album Delete Button -->
                                     <td>
-                                        <form action="{{ url('album/'.$album->id) }}" method="POST">
+                                        <form class="delete-button" action="{{ url('album/'.$album->id) }}" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
-
                                             <button type="submit" class="btn btn-danger">
                                                 <i class="fa fa-btn fa-trash"></i>Delete
                                             </button>
                                         </form>
+                                        
+                                        <a class="btn btn-small btn-info" href="{{ URL::to('album/' . $album->id . '/edit') }}">Edit this Album</a>
                                     </td>
                                 </tr>
                             @endforeach
