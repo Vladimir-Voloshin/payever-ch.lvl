@@ -66,8 +66,6 @@
                                                 <i class="fa fa-btn fa-trash"></i>Delete
                                             </button>
                                         </form>
-                                        
-                                        <a class="btn btn-small btn-info" href="{{ URL::to('album/' . $album->id . '/edit') }}">Edit this Album</a>
                                     </td>
                                 </tr>
                             @endforeach
