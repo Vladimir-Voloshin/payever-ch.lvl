@@ -7,6 +7,11 @@ use Illuminate\Support\ServiceProvider;
 class AlbumServiceProvider extends ServiceProvider
 {
     /**
+     * @var bool
+     */
+    protected $defer = true;
+    
+    /**
      * Bootstrap the application services.
      *
      * @return void
