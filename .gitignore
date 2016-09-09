@@ -1,8 +1,9 @@
-/vendor
+/.idea
+.env
 /node_modules
+/public/build/
 /public/storage
-/Homestead.yaml
-/Homestead.json
-/.env
-/.idea/
-/npm-debug.log
+/vendor
+Homestead.json
+Homestead.yaml
+npm-debug.log

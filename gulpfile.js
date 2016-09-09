@@ -1,5 +1,6 @@
-var elixir = require('laravel-elixir');
+const elixir = require('laravel-elixir');
 
+require('laravel-elixir-vue');
 require( 'elixir-coffeeify' );
 
 
@@ -14,10 +15,9 @@ require( 'elixir-coffeeify' );
  |
  */
 
-elixir(function(mix) {
-    mix
-        .sass('app.scss')
+elixir(mix => {
+    mix.sass('app.scss')
         .coffeeify(['coffee/payever.coffee'])
+        .webpack('app.js')
         .version(['css/app.css', 'js/payever.js']);
 });
-
