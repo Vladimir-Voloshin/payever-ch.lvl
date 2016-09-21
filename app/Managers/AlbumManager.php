@@ -5,7 +5,6 @@ namespace App\Managers;
 use Illuminate\Http\Request;
 use App\Album;
 use App\User as PayeverUser;
-use \App;
 
 class AlbumManager
 {
@@ -28,7 +27,7 @@ class AlbumManager
     public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->albums = App::make('App\Repositories\AlbumRepository');
+        $this->albums = resolve('App\Repositories\AlbumRepository');
     }
 
     /**
