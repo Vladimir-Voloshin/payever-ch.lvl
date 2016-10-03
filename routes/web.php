@@ -11,18 +11,20 @@
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
 
 Auth::routes();
 
-Route::get('/', 'AlbumController@index');
+Route::get('/', 'AlbumController@index'); //TODO: make a landing
 
-Route::post('/album', 'AlbumController@create');
+Route::group(['prefix' => 'web'], function(){
+	Route::group(['prefix' => 'album'], function(){
+		Route::post('/create', 'AlbumController@create');
+		Route::put('/{album}', 'AlbumController@update');
+		Route::delete('/{album}', 'AlbumController@delete');
+	});
+});
 
-Route::put('/album/{album}', 'AlbumController@update');
+//Route::get('/web/albums', 'AlbumController@index');
 
-Route::delete('/album/{album}', 'AlbumController@delete');
 
 //Route::auth();

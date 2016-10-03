@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Album;
 use App\Repositories\AlbumRepository;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use \Validator;
 use Illuminate\Support\Facades\Auth; //get data from auth-ed user
 
@@ -17,7 +18,7 @@ class AlbumController extends Controller
 	/**
 	 * The album manager instance.
 	 *
-	 * @var AlbumRepository
+	 * @var AlbumManager
 	 */
 	protected $manager;
 	
@@ -38,6 +39,17 @@ class AlbumController extends Controller
 		return view('albums.list', [
 			'albums' => $this->manager->getAllAlbums($request),
 		]);
+	}
+	
+	/**
+	 * Display a list of all of the user's albums.
+	 *
+	 * @param  Request  $request
+	 * @return Response
+	 */
+	public function api(Request $request)
+	{
+		return JsonResponse::create('api');
 	}
 
 	/**
@@ -63,7 +75,7 @@ class AlbumController extends Controller
 		$album->user_id = Auth::id();
 		$album->save();
 
-		return redirect('/');
+		return redirect('/web/albums');
 	}
 	
 	/**
@@ -88,7 +100,7 @@ class AlbumController extends Controller
 		$album->album_name = $request->album_name;
 		$album->save();
 
-		return redirect('/');
+		return redirect('/web/albums');
 	}
 
 	/**
@@ -100,10 +112,11 @@ class AlbumController extends Controller
 	 */
 	public function delete(Request $request, Album $album)
 	{
+//		var_dump(__LINE__, $request);die();
 		$this->authorize('delete', $album);
 
 		$album->delete();
 
-		return redirect('/');
+		return redirect('/web/albums');
 	}
 }

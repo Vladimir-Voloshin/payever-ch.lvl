@@ -15,7 +15,7 @@
                     @include('common.errors')
             
                     <!-- New Album Form -->
-                    <form action="{{ url('album') }}" method="POST" class="form-horizontal">
+                    <form action="{{ url('web/album/create') }}" method="POST" class="form-horizontal">
                     {{ csrf_field() }}
             
                     <!-- Album Name -->
@@ -59,7 +59,7 @@
 
                                     <!-- Album Delete Button -->
                                     <td>
-                                        <form class="delete-button" action="{{ url('album/'.$album->id) }}" method="POST">
+                                        <form class="delete-button" action="{{ url('web/album/'.$album->id) }}" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
                                             <button type="submit" class="btn btn-danger">
