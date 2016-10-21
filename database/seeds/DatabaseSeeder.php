@@ -11,17 +11,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-		$albumsAmount = 5;
-		$imagesPerAlbum = 5;
-		factory(App\User::class, $albumsAmount)->create()->each(function ($u) use (&$imagesPerAlbum) {
-			$album = factory(App\Album::class)->create();
-			$u->albums()->save($album);
-			factory(App\Image::class, $imagesPerAlbum)->create([
-				'album_id' => $album->id,
-			]);
-			$imagesPerAlbum += 15;
-		});
+        $albumsAmount = 5;
+        $imagesPerAlbum = 5;
+        factory(App\User::class, $albumsAmount)->create()->each(function ($u) use (&$imagesPerAlbum) {
+            $album = factory(App\Album::class)->create();
+            $u->albums()->save($album);
+            factory(App\Image::class, $imagesPerAlbum)->create([
+                'album_id' => $album->id,
+            ]);
+            $imagesPerAlbum += 15;
+        });
 
-		factory(App\User::class, 'supervisor')->create();
+        factory(App\User::class, 'supervisor')->create();
     }
 }

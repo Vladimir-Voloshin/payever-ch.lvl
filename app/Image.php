@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Image extends Model
 {
     //
-	public function album()
-	{
-		return $this->belongsTo(Album::class);
-	}
+    public function album()
+    {
+        return $this->belongsTo(Album::class);
+    }
 }
